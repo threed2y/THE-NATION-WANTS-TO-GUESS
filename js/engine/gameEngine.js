@@ -93,3 +93,13 @@ loadRound();
 ```
 
 }
+
+/* ===============================
+CONNECT TILE CLICK EVENT
+================================ */
+
+import { EventBus } from "../core/eventBus.js";
+
+EventBus.on("tile:clicked", term => {
+selectAnswer(term);
+});
