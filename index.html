@@ -1,153 +1,57 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Nation Wants to Guess - Stats Quiz | Production Edition</title>
-    <meta name="description" content="A high-stakes, satirical data science and statistics quiz game inspired by aggressive prime-time news debates.">
-    <meta name="theme-color" content="#dc2626">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22[http://www.w3.org/2000/svg%22](http://www.w3.org/2000/svg%22) viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📺</text></svg>">
-    
-    <!-- Link to external CSS -->
-    <link rel="stylesheet" href="styles.css">
-    
-    <script src="[https://cdn.tailwindcss.com](https://cdn.tailwindcss.com)"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: { brand: '#4a72ff', alert: '#dc2626' },
-                    animation: { 'marquee': 'marquee 15s linear infinite' },
-                    keyframes: { marquee: { '0%': { transform: 'translateX(100vw)' }, '100%': { transform: 'translateX(-100%)' } } }
-                }
-            }
-        }
-    </script>
-    <link href="[https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap](https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap)" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>The Nation Wants To Guess</title>
+
+<link rel="stylesheet" href="./css/styles.css">
+<script src="https://cdn.tailwindcss.com"></script>
+
 </head>
-<body class="p-2 md:p-6 flex items-center justify-center relative overflow-x-hidden">
-    
-    <div class="scanlines"></div>
 
-    <!-- Custom Quit Modal -->
-    <div id="quit-modal" class="fixed inset-0 bg-black/90 z-[100] hidden items-center justify-center backdrop-blur-sm">
-        <div class="bg-[#111] border-2 border-alert p-6 md:p-8 rounded-lg max-w-sm w-full text-center shadow-[0_0_30px_rgba(220,38,38,0.5)]">
-            <h3 class="text-2xl font-black text-white mb-4 uppercase tracking-widest">Abandon Debate?</h3>
-            <p class="text-gray-400 mb-8 text-sm md:text-base">The nation will judge you. Are you sure you want to quit?</p>
-            <div class="flex justify-center gap-4">
-                <button id="modal-cancel-btn" class="px-6 py-2 border border-gray-600 text-gray-400 hover:text-white hover:border-white font-bold rounded uppercase tracking-widest transition-all text-sm">Stay</button>
-                <button id="modal-confirm-btn" class="px-6 py-2 bg-alert hover:bg-red-700 text-white font-bold rounded uppercase tracking-widest transition-all shadow-[0_0_15px_rgba(220,38,38,0.4)] text-sm">Flee</button>
-            </div>
-        </div>
+<body class="bg-black text-white min-h-screen flex items-center justify-center">
+
+<div class="w-full max-w-5xl text-center">
+
+```
+<!-- Landing -->
+<div id="landing">
+    <h1 class="text-5xl font-black mb-8">
+        THE NATION WANTS TO GUESS
+    </h1>
+
+    <button id="startBtn"
+        class="bg-red-600 px-8 py-4 text-xl font-bold">
+        START GAME
+    </button>
+</div>
+
+<!-- Game -->
+<div id="game" class="hidden">
+
+    <h2 id="turnIndicator" class="text-xl mb-4"></h2>
+    <p id="questionText" class="text-2xl mb-6"></p>
+
+    <div class="w-full bg-gray-800 h-2 mb-6">
+        <div id="timerBar" class="bg-red-600 h-full w-full"></div>
     </div>
 
-    <div class="w-full max-w-5xl relative z-10 flex flex-col items-center">
-        
-        <!-- LANDING SCREEN -->
-        <div id="landing-screen" class="w-full flex flex-col items-center justify-center text-center py-8 md:py-16 animate-[fadeIn_1s_ease-out]">
-            <div class="inline-flex items-center gap-2 bg-red-600 text-white px-4 py-1.5 rounded-sm text-sm font-black tracking-widest mb-6 shadow-[0_0_15px_rgba(220,38,38,0.6)] animate-pulse">
-                <span class="w-2.5 h-2.5 bg-white rounded-full"></span> PRIME TIME EXCLUSIVE
-            </div>
-            
-            <h1 class="text-4xl md:text-7xl lg:text-8xl font-black uppercase tracking-tighter text-white drop-shadow-[0_5px_5px_rgba(0,0,0,0.8)] leading-none mb-4">
-                THE NATION<br>WANTS TO <span class="text-red-600 neon-text">GUESS</span>
-            </h1>
-            
-            <h2 class="text-lg md:text-3xl font-bold text-blue-400 tracking-widest uppercase mb-10">
-                Data Science & Stats Edition
-            </h2>
+    <div id="board" class="grid grid-cols-3 gap-4"></div>
 
-            <div class="bg-black/80 border border-red-600 p-6 md:p-8 rounded-xl max-w-2xl mb-8 relative overflow-hidden group hover:border-red-500 transition-colors shadow-2xl">
-                <div class="absolute top-0 left-0 w-full h-1 bg-red-600"></div>
-                <h3 class="text-red-500 font-black uppercase tracking-widest mb-6 text-lg md:text-xl">⚠️ RULES OF ENGAGEMENT ⚠️</h3>
-                <p class="text-gray-300 font-bold text-sm md:text-base leading-relaxed text-left inline-block">
-                    <span class="text-blue-400 mr-2 text-xl">1.</span> Take turns. The Anchor will scream a brutal statistical truth.<br><br>
-                    <span class="text-blue-400 mr-2 text-xl">2.</span> Find the correct corporate buzzword in the grid.<br><br>
-                    <span class="text-red-500 mr-2 text-xl animate-pulse">3.</span> <span class="text-white border-b border-red-500">TICK TOCK:</span> You only have 15 SECONDS per turn!<br><br>
-                    <span class="text-blue-400 mr-2 text-xl">4.</span> Most points after 5 rounds wins the debate.
-                </p>
-            </div>
+    <button id="nextBtn"
+        class="hidden mt-6 bg-red-600 px-6 py-3">
+        NEXT ROUND
+    </button>
 
-            <div class="flex flex-wrap justify-center gap-4 md:gap-8 mb-8 w-full">
-                <button id="btn-1p" class="px-4 md:px-8 py-3 border-2 border-gray-600 text-gray-400 bg-transparent font-black rounded uppercase tracking-widest hover:border-purple-600 hover:text-purple-400 transition-all">1 PLAYER</button>
-                <button id="btn-2p" class="px-4 md:px-8 py-3 border-2 border-red-600 bg-red-600 text-white font-black rounded uppercase tracking-widest transition-all shadow-[0_0_15px_rgba(220,38,38,0.4)]">2 PLAYERS</button>
-                <button id="btn-3p" class="px-4 md:px-8 py-3 border-2 border-gray-600 text-gray-400 bg-transparent font-black rounded uppercase tracking-widest hover:border-blue-600 hover:text-blue-400 transition-all">3 PLAYERS</button>
-            </div>
+</div>
+```
 
-            <button id="start-btn" class="relative overflow-hidden group px-8 md:px-12 py-4 md:py-6 bg-[#4a72ff] hover:bg-blue-600 text-white font-black rounded-lg uppercase tracking-[0.2em] text-lg md:text-2xl transition-all shadow-[0_0_30px_rgba(74,114,255,0.4)] hover:shadow-[0_0_50px_rgba(74,114,255,0.8)] hover:scale-105">
-                <span class="relative z-10">ENTER THE DEBATE ROOM</span>
-                <div class="absolute inset-0 h-full w-full scale-0 rounded-lg transition-all duration-300 group-hover:scale-100 group-hover:bg-white/10 z-0"></div>
-            </button>
-        </div>
+</div>
 
-        <!-- GAME SCREEN (Hidden initially) -->
-        <div id="game-screen" class="w-full hidden flex-col items-center relative">
+<script type="module" src="./js/main.js"></script>
 
-        <!-- Quit Button -->
-        <button id="quit-btn" class="absolute top-0 right-0 md:-right-4 text-xs md:text-sm text-gray-500 hover:text-red-500 font-bold tracking-widest uppercase transition-colors flex items-center gap-1 z-50 p-2 border border-transparent hover:border-red-500 rounded bg-black/50">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-            QUIT
-        </button>
-
-        <!-- News Channel Header -->
-        <div class="w-full border-b-4 border-red-600 pb-3 text-center mb-4 mt-8 md:mt-0">
-            <div class="inline-flex items-center gap-2 bg-red-600 text-white px-3 py-1 rounded-sm text-xs md:text-sm font-black tracking-widest mb-2 animate-pulse">
-                <span class="w-2 h-2 bg-white rounded-full"></span> LIVE DEBATE
-            </div>
-            <h1 class="text-2xl md:text-5xl lg:text-6xl font-black uppercase tracking-tighter text-white drop-shadow-lg">
-                The Nation Wants To <span class="text-red-600">Guess</span>
-            </h1>
-        </div>
-
-        <!-- Score & Turn Indicator -->
-        <div id="multiplayer-scoreboard" class="flex justify-center gap-6 md:gap-12 w-full px-4 text-xs md:text-sm font-bold tracking-widest uppercase mb-2" aria-live="polite">
-            <!-- Injected by JS -->
-        </div>
-        
-        <div id="turn-indicator" class="text-xl md:text-3xl font-black text-white uppercase tracking-widest mb-4 drop-shadow-md transition-colors duration-300" aria-live="assertive">
-            PLAYER 1'S TURN
-        </div>
-
-        <!-- The "Breaking Question" -->
-        <div class="w-full bg-[#111] border-l-8 border-alert p-4 md:p-6 mb-6 shadow-2xl relative overflow-hidden" id="question-box">
-            <!-- Timer Bar -->
-            <div class="absolute top-0 left-0 w-full h-1.5 bg-gray-800">
-                <div id="timer-bar" class="h-full bg-red-600 w-full transition-all duration-1000 ease-linear"></div>
-            </div>
-            
-            <div class="absolute -top-3 left-4 bg-red-600 text-white text-xs font-bold px-2 py-1 uppercase tracking-widest mt-4" id="breaking-badge">
-                Breaking Question
-            </div>
-            <div class="absolute top-4 right-4 text-red-500 font-mono font-black text-2xl md:text-4xl" id="timer-text">
-                15s
-            </div>
-            <p id="question-text" class="text-lg md:text-2xl lg:text-3xl font-bold italic text-white leading-snug mt-6">
-                "Loading the nation's outrage..."
-            </p>
-        </div>
-
-        <!-- The 3x3 Grid -->
-        <div id="game-board" class="w-full grid grid-cols-3 border-2 rounded-xl neon-border overflow-hidden bg-black/90 backdrop-blur-sm shadow-2xl pointer-events-auto transition-opacity duration-300">
-            <!-- Cards injected by JS -->
-        </div>
-
-        <!-- Next Round Button (Hidden by default) -->
-        <button id="next-btn" class="mt-6 px-8 py-3 bg-red-600 hover:bg-red-700 text-white font-black rounded uppercase tracking-widest text-sm md:text-lg transition-all transform scale-0 opacity-0 duration-300 shadow-[0_0_15px_rgba(220,38,38,0.5)]">
-            NEXT STORY ➔
-        </button>
-
-        </div> <!-- End Game Screen -->
-
-        <!-- Ticker / Footer -->
-        <div class="mt-6 w-full bg-blue-900/30 border border-blue-500/50 p-2 md:p-3 rounded flex overflow-hidden whitespace-nowrap">
-            <div class="text-blue-400 font-bold tracking-widest text-xs md:text-sm animate-[marquee_15s_linear_infinite] inline-block">
-                BREAKING: DATA SCIENTIST SPENDS 4 HOURS CLEANING CSV FILE... ONLY TO REALIZE THEY OPENED THE WRONG ONE. • NATION DEMANDS TO KNOW: WHERE IS THE P-VALUE? • ALGORITHM DECLARED 'UNBIASED' BY CREATOR WHO ONLY TRAINED IT ON PICTURES OF THEMSELVES.
-            </div>
-        </div>
-        
-    </div>
-
-    <!-- Import external JS module -->
-    <script type="module" src="game.js"></script>
 </body>
 </html>
