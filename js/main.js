@@ -4,20 +4,20 @@ Initializes all modules
 */
 
 /* Core Systems */
-import "./core/eventBus.js";
-import "./core/state.js";
-import "./core/config.js";
+import "js/core/eventBus.js";
+import "js/core/state.js";
+import "js/core/config.js";
 
 /* Data */
-import "./data/database.js";
+import "js/data/database.js";
 
 /* Engines */
-import "./engine/gameEngine.js";
-import "./engine/timerEngine.js";
+import "js/engine/gameEngine.js";
+import "js/engine/timerengine.js";
 
 /* UI Modules */
-import "./ui/board.js";
-import "./ui/controller.js";
+import "js/ui/board.js";
+import "js/ui/controller.js";
 
 /*
 No additional code needed.

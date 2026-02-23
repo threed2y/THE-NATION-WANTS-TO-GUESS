@@ -1,8 +1,11 @@
-import { EventBus } from "../core/eventBus.js";
-import { State } from "../core/state.js";
-import { CONFIG } from "../core/config.js"; // Added missing import
+// FIXED: Since we are already in the 'core' folder, we just use ./
+import { EventBus } from "./eventBus.js";
+import { State } from "./state.js";
+import { CONFIG } from "./config.js";
+
+// These still need ../ because they are in the engine folder
 import { startGame } from "../engine/gameEngine.js";
-import { startTimer, stopTimer } from "../engine/timerengine.js"; // Fixed lowercase 'e'
+import { startTimer, stopTimer } from "../engine/timerengine.js";
 
 /* DOM Elements */
 const landing = document.getElementById("landing");
@@ -45,7 +48,6 @@ EventBus.on("round:loaded", ({ question, round, player }) => {
 
 /* Timer update */
 EventBus.on("timer:update", remaining => {
-    // Fixed hardcoded 15000 using CONFIG
     const percent = (remaining / CONFIG.ROUND_TIME_MS) * 100;
     timerBar.style.width = percent + "%";
 
