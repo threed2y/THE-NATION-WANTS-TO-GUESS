@@ -103,3 +103,13 @@ import { EventBus } from "../core/eventBus.js";
 EventBus.on("tile:clicked", term => {
 selectAnswer(term);
 });
+
+/* Listen for tile clicks */
+EventBus.on("tile:clicked", term => {
+selectAnswer(term);
+});
+
+/* Listen for next round button */
+EventBus.on("round:next", () => {
+loadRound();
+});
