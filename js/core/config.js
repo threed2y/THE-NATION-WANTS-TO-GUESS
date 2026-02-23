@@ -1,21 +1,16 @@
+/* Game Configuration Settings
+   Adjust these values to tweak the game's difficulty and length.
+*/
 
 export const CONFIG = {
 
-```
-/* Rounds */
-TOTAL_ROUNDS: 5,
+    // Time per round in milliseconds (e.g., 15000 = 15 seconds)
+    ROUND_TIME_MS: 10000,
 
-/* Timer */
-ROUND_TIME_MS: 15000,
+    // Points awarded for a correct answer
+    POINTS_CORRECT: 10,
 
-/* Scoring */
-POINTS_CORRECT: 10,
-
-/* Grid Settings */
-GRID_SIZE: 9,   // 3x3 board
-
-/* Animation Speed */
-UI_TRANSITION_MS: 300
-```
+    // Total number of rounds each player will play before the game ends
+    TOTAL_ROUNDS: 5
 
 };

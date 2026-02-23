@@ -1,57 +1,59 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Nation Wants To Guess</title>
 
-<title>The Nation Wants To Guess</title>
+    <link rel="stylesheet" href="./css/styles.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="./css/styles.css">
-<script src="https://cdn.tailwindcss.com"></script>
-
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
 </head>
 
-<body class="bg-black text-white min-h-screen flex items-center justify-center">
+<body class="bg-slate-900 text-white min-h-screen flex items-center justify-center p-4 selection:bg-rose-500 selection:text-white">
 
-<div class="w-full max-w-5xl text-center">
+    <div class="w-full max-w-4xl bg-slate-800/60 backdrop-blur-xl rounded-[2rem] shadow-2xl border border-slate-700 p-8 md:p-12 text-center transition-all">
 
-```
-<!-- Landing -->
-<div id="landing">
-    <h1 class="text-5xl font-black mb-8">
-        THE NATION WANTS TO GUESS
-    </h1>
+        <div id="landing" class="flex flex-col items-center justify-center space-y-8 animate-fade-in">
+            <div class="inline-block p-6 rounded-3xl bg-gradient-to-br from-rose-500 to-orange-500 shadow-lg shadow-rose-500/30 mb-2">
+                <h1 class="text-4xl md:text-6xl font-black tracking-tight text-white drop-shadow-md leading-tight">
+                    THE NATION<br/>WANTS TO GUESS
+                </h1>
+            </div>
+            <p class="text-slate-400 text-lg md:text-xl max-w-lg">Decode the clues, beat the clock, and claim the title of the ultimate data sleuth.</p>
 
-    <button id="startBtn"
-        class="bg-red-600 px-8 py-4 text-xl font-bold">
-        START GAME
-    </button>
-</div>
+            <button id="startBtn" class="group relative px-10 py-4 bg-white text-slate-900 text-xl font-bold rounded-full overflow-hidden transition-transform hover:scale-105 active:scale-95 shadow-xl">
+                <span class="relative z-10 group-hover:text-rose-600 transition-colors">START GAME</span>
+            </button>
+        </div>
 
-<!-- Game -->
-<div id="game" class="hidden">
+        <div id="game" class="hidden flex-col items-center w-full animate-fade-in">
 
-    <h2 id="turnIndicator" class="text-xl mb-4"></h2>
-    <p id="questionText" class="text-2xl mb-6"></p>
+            <div class="flex flex-col md:flex-row justify-between items-center w-full mb-8 pb-6 border-b border-slate-700/60 gap-4">
+                <h2 id="turnIndicator" class="text-xl md:text-2xl font-bold text-rose-400 tracking-wider uppercase"></h2>
+                <div class="w-full md:w-1/3 bg-slate-900 rounded-full h-3 overflow-hidden shadow-inner border border-slate-700">
+                    <div id="timerBar" class="bg-green-500 h-full w-full rounded-full transition-all duration-100 ease-linear"></div>
+                </div>
+            </div>
 
-    <div class="w-full bg-gray-800 h-2 mb-6">
-        <div id="timerBar" class="bg-red-600 h-full w-full"></div>
+            <div class="bg-slate-900/50 rounded-2xl p-6 md:p-10 w-full shadow-inner border border-slate-700 mb-8 min-h-[160px] flex items-center justify-center">
+                <p id="questionText" class="text-2xl md:text-4xl font-bold leading-tight text-slate-100"></p>
+            </div>
+
+            <div id="board" class="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4 w-full mb-8"></div>
+
+            <button id="nextBtn" class="hidden w-full md:w-auto bg-gradient-to-r from-rose-500 to-orange-500 hover:from-rose-600 hover:to-orange-600 text-white px-10 py-4 rounded-full font-bold text-lg shadow-lg shadow-rose-500/25 transition-all hover:scale-105 active:scale-95">
+                NEXT ROUND &rarr;
+            </button>
+
+        </div>
+
     </div>
 
-    <div id="board" class="grid grid-cols-3 gap-4"></div>
-
-    <button id="nextBtn"
-        class="hidden mt-6 bg-red-600 px-6 py-3">
-        NEXT ROUND
-    </button>
-
-</div>
-```
-
-</div>
-
-<script type="module" src="./js/main.js"></script>
-
+    <script type="module" src="./js/main.js"></script>
 </body>
 </html>
